@@ -1,9 +1,6 @@
 package Repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class AttendanceRepo {
 
@@ -26,7 +23,7 @@ public class AttendanceRepo {
 
     private void executeStatement(String query){
         try{
-            statement.executeQuery(query);
+            statement.execute(query);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -44,7 +41,16 @@ public class AttendanceRepo {
         executeStatement(query);
     }
 
-    public void getEventAttendance(int eventID){
+    public int getEventAttendance(int eventID){
         String query=String.format("SELECT COUNT(user_id) FROM attendance WHERE event_id=%d",eventID);
+
+        try {
+            ResultSet result = statement.executeQuery(query);
+            if(result.next())
+                return result.getInt(1);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

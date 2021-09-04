@@ -27,7 +27,7 @@ public class UserRepo {
 
     private void executeStatement(String query){
         try{
-            statement.executeQuery(query);
+            statement.execute(query);
         }catch(SQLException e){
             e.printStackTrace();
         }

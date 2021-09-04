@@ -19,6 +19,8 @@ public class Event {
     private LocalDateTime dateEnd;
     private int sizeLimit;
     private boolean ageRestriction;
+    private int going;
+    private int interested;
 
     public Event(int event_id,String eventName,String location,String description, String dateStart, String dateEnd,int sizeLimit, boolean ageRestriction){
         this.event_id=event_id;
@@ -29,5 +31,23 @@ public class Event {
         this.dateEnd=LocalDateTime.of(Integer.parseInt(dateEnd.split("-")[0]),Integer.parseInt(dateEnd.split("-")[1]),Integer.parseInt(dateEnd.split("-")[2]),Integer.parseInt(dateEnd.split("-")[3]),Integer.parseInt(dateEnd.split("-")[4]));
         this.sizeLimit=sizeLimit;
         this.ageRestriction=ageRestriction;
+    }
+
+    public Event(String eventName,String location,String description, LocalDateTime dateStart, LocalDateTime dateEnd,int sizeLimit, boolean ageRestriction){
+        this.eventName=eventName;
+        this.location=location;
+        this.description=description;
+        this.dateStart=dateStart;
+        this.dateEnd=dateEnd;
+        this.sizeLimit=sizeLimit;
+        this.ageRestriction=ageRestriction;
+    }
+
+    @Override
+    public String toString(){
+        return "Event: "+eventName+"\n"+
+                "Location: "+location+"\n"+
+                "Details: "+description+"\n"+
+                "Max number of people: "+sizeLimit;
     }
 }

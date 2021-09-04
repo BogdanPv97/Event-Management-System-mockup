@@ -28,7 +28,7 @@ public class EventRepo {
 
     private void executeStatement(String query){
         try{
-            statement.executeQuery(query);
+            statement.execute(query);
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class EventRepo {
     }
 
     public void insertEvent(Event event){
-        String insertQuery=String.format("INSERT INTO event (name,location,description,startDate,endDate,size_limit,ageRestriction) " +
+        String insertQuery=String.format("INSERT INTO event (name,location,description,dateStart,dateEnd,size_limit,ageRestriction) " +
                 "values ('%s','%s','%s','%s','%s',%d,%b)",event.getEventName(),event.getLocation(),event.getDescription(),event.getDateStart(),event.getDateEnd(),
                 event.getSizeLimit(),event.isAgeRestriction());
 

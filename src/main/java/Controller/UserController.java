@@ -6,6 +6,8 @@ import com.mysql.cj.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserController {
 
@@ -18,18 +20,12 @@ public class UserController {
         loadRepo();
     }
 
-    public boolean validUsername(String username){
-        for(User user:users){
-            if(user.getUsername().equals(username))
-                return false;
-        }
 
-        return true;
-    }
 
     //CRUD
     public void addUser(User user){
         userRepo.insertUser(user);
+        loadRepo();
     }
 
     public void deleteUser(String username){
@@ -62,36 +58,41 @@ public class UserController {
         }
     }
 
-    //Check if the password is strong enough
-    public boolean securityCheck(String password){
-
-        boolean lowercase=false;
-        boolean uppercase=false;
-        boolean digit=false;
-
-        if(password.length()<8){
-            return false;
-        }
-        if(!password.contains("@") || !password.contains("#") || !password.contains("$") || !password.contains("%") || !password.contains("^") || !password.contains("&")){
-            return false;
-        }
-        for(int i=0;i<password.length();i++){
-            if(Character.isDigit(i))
-                digit=true;
-            if(Character.isUpperCase(i))
-                uppercase=true;
-            if(Character.isLowerCase(i))
-                lowercase=true;
-        }
-
-        if(!digit==true || !uppercase==true || !lowercase==true){
-            return false;
+    public boolean validUsername(String username){
+        for(User user:users){
+            if(user.getUsername().equals(username))
+                return false;
         }
 
         return true;
     }
 
+    public boolean validCredential(String username, String password){
+        for(User user:users){
+            if(user.getUsername().equals(username) && user.getPassword().equals(password))
+                return true;
+        }
+        return false;
+    }
+
+    //Check if the password is strong enough
+    public boolean securityCheck(String password){
+        if(password.length()<8){
+            return false;
+        }
+
+        Pattern pattern=Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!.$%^&-+=()])(?=\\S+$).{8,20}$");
+        Matcher matcher=pattern.matcher(password);
+
+        if(!matcher.find()){
+            return false;
+        }
+        return true;
+    }
+
     public void loadRepo(){
+        users.clear();
         users.addAll(userRepo.getAllUsers());
     }
+
 }

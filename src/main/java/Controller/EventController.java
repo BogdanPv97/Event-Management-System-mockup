@@ -1,7 +1,9 @@
 package Controller;
 
 import Model.Event;
+import Repository.AttendanceRepo;
 import Repository.EventRepo;
+import Repository.InterestedRepo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,16 +13,21 @@ public class EventController {
 
     private List<Event> events;
     private EventRepo eventRepo;
+    private AttendanceRepo attendanceRepo;
+    private InterestedRepo interestedRepo;
 
     public EventController(){
         events=new ArrayList<>();
         eventRepo=new EventRepo();
+        attendanceRepo=new AttendanceRepo();
+        interestedRepo=new InterestedRepo();
         loadRepo();
     }
 
     //CRUD
     public void addEvent(Event event){
         eventRepo.insertEvent(event);
+        loadRepo();
     }
 
     public void deleteEvent(String name, String location){
@@ -61,7 +68,16 @@ public class EventController {
         }
     }
 
+    public int getInterested(int eventID){
+        return interestedRepo.InterestedInEvent(eventID);
+    }
+
+    public int getGoing(int eventID){
+        return attendanceRepo.getEventAttendance(eventID);
+    }
+
     public void loadRepo(){
+        events.clear();
         events.addAll(eventRepo.getAllEvents());
     }
 }
