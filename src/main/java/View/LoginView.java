@@ -9,10 +9,12 @@ public class LoginView {
 
     private Scanner keyboard;
     private UserController userController;
+    private UserView userView;
 
     public LoginView(){
         keyboard=new Scanner(System.in);
         userController=new UserController();
+        userView=new UserView();
     }
 
     public void loginMenu(){
@@ -56,7 +58,7 @@ public class LoginView {
 
             if(userController.validCredential(username,password)){
                 validCredential=true;
-                //go to next view
+                userView.play(username);
             }else{
                 System.out.println("Invalid credentials!");
                 play();
@@ -88,7 +90,7 @@ public class LoginView {
                 validUsername = true;
             }
         System.out.println("Enter password:");
-        System.out.println("Password should include:" + "\n+" +
+        System.out.println("Password should include:" + "\n" +
                 "Numeric value [1-9]" + "\n" +
                 "Uppercase and Lowercase letters[a-z][A-Z]" + "\n" +
                 "At least one special character (@ # $ % ^ & *)" + "\n" +

@@ -9,7 +9,7 @@ public class InterestedRepoTest {
     public void insertDataTest(){
         InterestedRepo repo=new InterestedRepo();
 
-        repo.addData(6,4);
+        repo.insertData(6,4);
     }
 
     @Test

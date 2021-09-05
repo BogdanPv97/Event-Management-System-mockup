@@ -19,11 +19,13 @@ public class AttendanceRepoTest {
         User user=new User("Bogdan","Bogdan","bogdan1234","bogdan1234",24);
         Event event=new Event("name","stada2","acesta este un eveniment", LocalDateTime.of(2021,5,20,20,0),LocalDateTime.of(2021,5,21,4,0),200,true);
 
-        userRepo.insertUser(user);
-        eventRepo.insertEvent(event);
+        //userRepo.insertUser(user);
+        //eventRepo.insertEvent(event);
 
-        repo.insertData(userRepo.getUserID(user.getUsername()),eventRepo.getEventID(event.getEventName(),event.getLocation()));
-
+        //repo.insertData(userRepo.getUserID(user.getUsername()),eventRepo.getEventID(event.getEventName(),event.getLocation()));
+        repo.insertData(10,8);
+        repo.insertData(11,8);
+        repo.insertData(12,8);
         //Check into database that the data was correctly inserted
     }
 
@@ -40,7 +42,7 @@ public class AttendanceRepoTest {
        // eventRepo.insertEvent(event);
 
         //repo.insertData(userRepo.getUserID(user.getUsername()),eventRepo.getEventID(event.getEventName(),event.getLocation()));
-        repo.deleteData(6,2);
+        repo.deleteData(6,8);
 
         //Check into database that the data was correctly deleted
     }

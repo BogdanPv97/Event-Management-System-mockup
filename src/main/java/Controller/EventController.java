@@ -4,9 +4,11 @@ import Model.Event;
 import Repository.AttendanceRepo;
 import Repository.EventRepo;
 import Repository.InterestedRepo;
+import Utility.EventComparator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EventController {
@@ -65,7 +67,46 @@ public class EventController {
     public void display(){
         for(Event event:events){
             System.out.println(event);
+            System.out.println("--------------");
         }
+    }
+
+    public List<Event> getEventByName(String eventName){
+        List<Event> resultEvents=new ArrayList<>();
+
+        for(Event event:events){
+            if(event.getEventName().equals(eventName))
+                resultEvents.add(event);
+        }
+        return getSortedByNumberOfPeople(resultEvents);
+    }
+
+    public List<Event> getEventByLocation(String location){
+        List<Event> resultEvents=new ArrayList<>();
+
+        for(Event event:events){
+            if(event.getLocation().equals(location))
+                resultEvents.add(event);
+        }
+        return getSortedByNumberOfPeople(resultEvents);
+    }
+
+    public Event getEventByID(int eventID){
+        for(Event event:events){
+            if(event.getEvent_id()==eventID)
+                return event;
+        }
+        return null;
+    }
+
+    public List<Event> getSortedByNumberOfPeople(List<Event> sorted){
+        sorted=new ArrayList<>();
+
+        sorted.addAll(events);
+        Collections.sort(sorted,new EventComparator());
+        Collections.reverse(sorted);
+
+        return sorted;
     }
 
     public int getInterested(int eventID){

@@ -29,7 +29,7 @@ public class InterestedRepo {
         }
     }
 
-    public void addData(int userID, int eventID){
+    public void insertData(int userID, int eventID){
         String query=String.format("INSERT INTO interested (user_id,event_id) values (%d, %d)",userID,eventID);
 
         executeStatement(query);

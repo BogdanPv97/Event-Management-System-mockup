@@ -10,7 +10,7 @@ public class EventRepoTest {
     public void addTest(){
         EventRepo repo=new EventRepo();
 
-        Event event=new Event("event","stada1","descriere", LocalDateTime.of(2021,5,20,20,0),LocalDateTime.of(2021,5,21,9,0),200,false);
+        Event event=new Event("event","stada1","descriere", LocalDateTime.of(2021,5,20,20,0),LocalDateTime.of(2021,5,21,9,0),900,false);
 
         repo.insertEvent(event);
     }
