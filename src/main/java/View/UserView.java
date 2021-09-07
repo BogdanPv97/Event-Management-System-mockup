@@ -74,7 +74,7 @@ public class UserView {
     }
 
     public void viewEvents(){
-        eventController.display();
+        System.out.println(eventController.getSortedByNumberOfPeople(eventController.getEventList()));
     }
 
     public void searchEvent(String username){
@@ -89,7 +89,7 @@ public class UserView {
                     searchByName(username);
                     break;
                 case 2:
-                    searchByLocation();
+                    searchByLocation(username);
                     break;
             }
         }
@@ -115,7 +115,24 @@ public class UserView {
 
     }
 
-    public void searchByLocation(){}
+    public void searchByLocation(String username){
+        String location;
+        int eventID;
+
+        System.out.println("Enter Location:");
+        location=keyboard.nextLine();
+
+        if(eventController.getEventByLocation(location)==null){
+            System.out.println("No events at location "+location);
+        }else{
+            System.out.println(eventController.getEventByLocation(location));
+        }
+        System.out.println("Choose event ID:");
+        eventID=Integer.parseInt(keyboard.nextLine());
+
+        eventSelected(eventID,username);
+
+    }
 
     public void eventSelected(int eventID, String username){
         System.out.println("------------------");
@@ -127,12 +144,12 @@ public class UserView {
             int choice=Integer.parseInt(keyboard.nextLine());
             switch(choice){
                 case 1:
-                    attendanceRepo.insertData(eventID,userController.getUserByUsername(username).getUser_id());
+                    attendanceRepo.insertData(userController.getUserByUsername(username).getUser_id(),eventID);
                     System.out.println("You are going to "+eventController.getEventByID(eventID).getEventName());
                     play(username);
                     break;
                 case 2:
-                    interestedRepo.insertData(eventID,userController.getUserByUsername(username).getUser_id());
+                    interestedRepo.insertData(userController.getUserByUsername(username).getUser_id(),eventID);
                     System.out.println("You are interested in: "+eventController.getEventByID(eventID).getEventName());
                     play(username);
                     break;

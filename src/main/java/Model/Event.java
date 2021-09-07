@@ -19,8 +19,6 @@ public class Event implements Comparable<Event>{
     private LocalDateTime dateEnd;
     private int sizeLimit;
     private boolean ageRestriction;
-    private int going;
-    private int interested;
 
     public Event(int event_id,String eventName,String location,String description, String dateStart, String dateEnd,int sizeLimit, boolean ageRestriction){
         this.event_id=event_id;
@@ -55,11 +53,6 @@ public class Event implements Comparable<Event>{
 
     @Override
     public int compareTo(Event o) {
-        if(this.going==o.getGoing())
-            return 0;
-        else if(this.going<o.getGoing())
-            return -1;
-        else
-            return 1;
+       return this.eventName.compareTo(o.getEventName());
     }
 }

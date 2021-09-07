@@ -99,6 +99,10 @@ public class EventController {
         return null;
     }
 
+    public List<Event> getEventList(){
+        return events;
+    }
+
     public List<Event> getSortedByNumberOfPeople(List<Event> sorted){
         sorted=new ArrayList<>();
 
