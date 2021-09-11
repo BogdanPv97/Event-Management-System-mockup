@@ -3,8 +3,11 @@ package Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -25,8 +28,8 @@ public class Event implements Comparable<Event>{
         this.eventName=eventName;
         this.location=location;
         this.description=description;
-       // this.dateStart=LocalDateTime.of(Integer.parseInt(dateStart.split("-")[0]),Integer.parseInt(dateStart.split("-")[1]),Integer.parseInt(dateStart.split("\s")[2]),Integer.parseInt(dateStart.split(":")[3]),Integer.parseInt(dateStart.split(":")[4]));
-       // this.dateEnd=LocalDateTime.of(Integer.parseInt(dateEnd.split("-")[0]),Integer.parseInt(dateEnd.split("-")[1]),Integer.parseInt(dateEnd.split("\s")[2]),Integer.parseInt(dateEnd.split(":")[3]),Integer.parseInt(dateEnd.split(":")[4]));
+        this.dateStart=stringToDate(dateStart);
+        this.dateEnd=stringToDate(dateEnd);
         this.sizeLimit=sizeLimit;
         this.ageRestriction=ageRestriction;
     }
@@ -49,6 +52,13 @@ public class Event implements Comparable<Event>{
                 "Details: "+description+"\n"+
                 "Max number of people: "+sizeLimit+"\n"+
                 "Event starts on "+dateStart+" until "+dateEnd+"\n";
+    }
+
+    public LocalDateTime stringToDate(String date){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime formatted=LocalDateTime.parse(date,formatter);
+
+        return formatted;
     }
 
     @Override
